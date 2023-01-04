@@ -8,7 +8,8 @@ const app = Vue.createApp({
 
   },
   mounted: function() {
-
+    this.keyword = 'Javascript'
+    this.getAnswer()
   },
   methods: {
     getAnswer: function () {
@@ -23,7 +24,14 @@ const app = Vue.createApp({
       const params = { page: 1, per_page: 20, query: this.keyword }
       axios.get('https://qiita.com/api/v2/items', { params })
             .then(function(response) {
-              console.log('response')
+              // console.log(response)
+              vm.items = response.data
+            })
+            .catch(function(error){
+              vm.message = 'Error!' + error
+            })
+            .finally(function() {
+              vm.message = ''
             })
     }
   }
